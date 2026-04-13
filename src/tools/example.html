@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Standards Report - workflow-orchestrator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f1923; color: #e0e6ed; padding: 40px; }
+    h1 { text-align: center; font-size: 2rem; margin-bottom: 8px; color: #fff; }
+    .subtitle { text-align: center; color: #7a8a9e; margin-bottom: 40px; font-size: 0.95rem; }
+    .report-date { text-align: center; color: #556677; margin-bottom: 30px; font-size: 0.85rem; }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1200px; margin: 0 auto; }
+    .card { background: #172233; border: 1px solid #253545; border-radius: 12px; padding: 28px; }
+    .card h2 { font-size: 1.1rem; color: #8fb8de; margin-bottom: 18px; border-bottom: 1px solid #253545; padding-bottom: 10px; }
+    .card.full-width { grid-column: 1 / -1; }
+
+    /* Pyramid */
+    .pyramid-container { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+    .pyramid-level { display: flex; align-items: center; justify-content: center; margin: 3px 0; border-radius: 6px; text-align: center; font-weight: 600; font-size: 0.85rem; position: relative; transition: transform 0.2s; cursor: default; }
+    .pyramid-level:hover { transform: scale(1.03); }
+    .pyramid-level .count-badge {
+      position: absolute; right: 12px; background: rgba(0,0,0,0.35);
+      padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;
+    }
+
+    .level-e2e { width: 30%; height: 52px; background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .level-integration { width: 50%; height: 58px; background: linear-gradient(135deg, #e67e22, #d35400); }
+    .level-component { width: 70%; height: 64px; background: linear-gradient(135deg, #f1c40f, #d4ac0f); color: #1a1a2e; }
+    .level-unit { width: 90%; height: 70px; background: linear-gradient(135deg, #2ecc71, #27ae60); }
+
+    .pyramid-labels { display: flex; justify-content: space-between; width: 90%; margin-top: 16px; font-size: 0.75rem; color: #556677; }
+
+    /* Summary table */
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #253545; }
+    th { color: #7a8a9e; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { font-size: 0.9rem; }
+    tr:last-child td { border-bottom: none; }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; }
+    .badge-unit { background: #1a3a2a; color: #2ecc71; }
+    .badge-component { background: #3a3520; color: #f1c40f; }
+    .badge-integration { background: #3a2810; color: #e67e22; }
+    .badge-e2e { background: #3a1520; color: #e74c3c; }
+    .badge-pass { background: #1a3a2a; color: #2ecc71; }
+    .badge-warn { background: #3a3520; color: #f1c40f; }
+    .badge-fail { background: #3a1520; color: #e74c3c; }
+
+    .stat-row { display: flex; gap: 20px; margin-bottom: 12px; }
+    .stat-box { flex: 1; background: #1c2d3f; border-radius: 8px; padding: 18px; text-align: center; }
+    .stat-box .number { font-size: 2.2rem; font-weight: 700; }
+    .stat-box .label { font-size: 0.75rem; color: #7a8a9e; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-box.green .number { color: #2ecc71; }
+    .stat-box.yellow .number { color: #f1c40f; }
+    .stat-box.orange .number { color: #e67e22; }
+    .stat-box.red .number { color: #e74c3c; }
+
+    .file-path { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: #8fb8de; }
+
+    .compliance-item { margin-bottom: 14px; padding: 12px 16px; background: #1c2d3f; border-radius: 8px; border-left: 3px solid; }
+    .compliance-item.pass { border-left-color: #2ecc71; }
+    .compliance-item.warn { border-left-color: #f1c40f; }
+    .compliance-item.fail { border-left-color: #e74c3c; }
+    .compliance-item .title { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+    .compliance-item .detail { font-size: 0.82rem; color: #7a8a9e; }
+
+    .gap-item { padding: 10px 14px; background: #2a1520; border-radius: 8px; margin-bottom: 8px; font-size: 0.85rem; border-left: 3px solid #e74c3c; }
+    .rec-item { padding: 10px 14px; background: #1a2a35; border-radius: 8px; margin-bottom: 8px; font-size: 0.85rem; border-left: 3px solid #3498db; }
+  </style>
+</head>
+<body>
+  <h1>Test Standards Report</h1>
+  <p class="subtitle">Repository: <strong>workflow-orchestrator</strong> (Workflow Orchestrator MCP)</p>
+  <p class="report-date">Generated: 2026-03-09 | Standards: Engineering Quality Strategy</p>
+
+  <!-- Stats Overview -->
+  <div class="grid" style="margin-bottom: 30px;">
+    <div class="card full-width">
+      <div class="stat-row">
+        <div class="stat-box green">
+          <div class="number">8</div>
+          <div class="label">Total Tests</div>
+        </div>
+        <div class="stat-box green">
+          <div class="number">5</div>
+          <div class="label">Unit Tests</div>
+        </div>
+        <div class="stat-box yellow">
+          <div class="number">0</div>
+          <div class="label">Component Tests</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="number">3</div>
+          <div class="label">Integration Tests</div>
+        </div>
+        <div class="stat-box red">
+          <div class="number">0</div>
+          <div class="label">E2E Tests</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Test Pyramid -->
+    <div class="card">
+      <h2>Test Pyramid</h2>
+      <div class="pyramid-container">
+        <div class="pyramid-level level-e2e">
+          E2E
+          <span class="count-badge">0</span>
+        </div>
+        <div class="pyramid-level level-integration">
+          Integration
+          <span class="count-badge">3</span>
+        </div>
+        <div class="pyramid-level level-component">
+          Component
+          <span class="count-badge">0</span>
+        </div>
+        <div class="pyramid-level level-unit">
+          Unit
+          <span class="count-badge">5</span>
+        </div>
+        <div class="pyramid-labels">
+          <span>User Confidence</span>
+          <span>Developer Confidence</span>
+        </div>
+      </div>
+      <p style="text-align:center; font-size:0.8rem; color:#556677; margin-top:12px;">
+        Ideal shape: wide base (Unit), narrow top (E2E)
+      </p>
+    </div>
+
+    <!-- Test Inventory -->
+    <div class="card">
+      <h2>Test Inventory</h2>
+      <table>
+        <thead>
+          <tr><th>File</th><th>Type</th><th>Tests</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="file-path">src/tests/tools/commitSummary.test.ts</span>
+            </td>
+            <td><span class="badge badge-unit">Unit</span></td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="file-path">src/tests/server.integration.test.ts</span>
+            </td>
+            <td><span class="badge badge-integration">Integration</span></td>
+            <td>3</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Compliance Check -->
+    <div class="card">
+      <h2>Standards Compliance</h2>
+
+      <div class="compliance-item pass">
+        <div class="title">Network Hopping Rule <span class="badge badge-pass">PASS</span></div>
+        <div class="detail">Unit tests (commitSummary.test.ts) have no network/DB calls. Pure function testing with full isolation.</div>
+      </div>
+
+      <div class="compliance-item pass">
+        <div class="title">Integration Test Isolation <span class="badge badge-pass">PASS</span></div>
+        <div class="detail">Integration tests correctly spawn a local MCP server process via stdio. Server lifecycle is properly managed (beforeAll/afterAll).</div>
+      </div>
+
+      <div class="compliance-item warn">
+        <div class="title">Test Pyramid Balance <span class="badge badge-warn">WARNING</span></div>
+        <div class="detail">No Service Component tests found. The pyramid has a gap between Unit and Integration tiers. Business logic should be covered by component tests with mocked dependencies.</div>
+      </div>
+
+      <div class="compliance-item warn">
+        <div class="title">Coverage Floors <span class="badge badge-warn">WARNING</span></div>
+        <div class="detail">Only 2 test files covering 2 of the service's modules. Coverage likely below the 80% overall floor required by team standards.</div>
+      </div>
+
+      <div class="compliance-item pass">
+        <div class="title">Test Quality Rules <span class="badge badge-pass">PASS</span></div>
+        <div class="detail">No sleep/setTimeout in tests. No commented-out tests. Tests co-located in service repo. No production data usage.</div>
+      </div>
+    </div>
+
+    <!-- Gaps & Recommendations -->
+    <div class="card">
+      <h2>Gaps & Recommendations</h2>
+
+      <div class="gap-item">
+        <strong>GAP:</strong> Missing Service Component Tests for tool modules (investigate.ts, other tools). These should mock external dependencies (GitHub, Jira, Confluence APIs).
+      </div>
+
+      <div class="gap-item">
+        <strong>GAP:</strong> No test tagging strategy. Tests are not tagged (e.g., @checkout, @tools) for smart CI scheduling as required by the Review Rubric.
+      </div>
+
+      <div class="gap-item">
+        <strong>GAP:</strong> No coverage reporting configured. SonarCloud/Vitest coverage plugin not set up to enforce the 80% floor.
+      </div>
+
+      <div class="rec-item">
+        <strong>REC:</strong> Add Service Component tests for each tool in <code>src/tools/</code> using mocked MCP SDK and external API stubs to fill the pyramid gap.
+      </div>
+
+      <div class="rec-item">
+        <strong>REC:</strong> Configure Vitest coverage (<code>@vitest/coverage-v8</code>) and integrate with CI to enforce coverage floors per team standards.
+      </div>
+
+      <div class="rec-item">
+        <strong>REC:</strong> Add test tags/annotations for smart scheduling and CI pipeline segmentation.
+      </div>
+    </div>
+
+    <!-- Test Details -->
+    <div class="card full-width">
+      <h2>Detailed Test Breakdown</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Test Name</th>
+            <th>File</th>
+            <th>Pyramid Tier</th>
+            <th>Network Hop?</th>
+            <th>Compliance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>returns content with one text block</td>
+            <td class="file-path">commitSummary.test.ts</td>
+            <td><span class="badge badge-unit">Unit</span></td>
+            <td>No</td>
+            <td><span class="badge badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>includes GitHub MCP and list_commits in the instructions</td>
+            <td class="file-path">commitSummary.test.ts</td>
+            <td><span class="badge badge-unit">Unit</span></td>
+            <td>No</td>
+            <td><span class="badge badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>uses context hint when owner/repo omitted</td>
+            <td class="file-path">commitSummary.test.ts</td>
+            <td><span class="badge badge-unit">Unit</span></td>
+            <td>No</td>
+            <td><span class="badge badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>uses provided owner and repo in the instructions</td>
+            <td class="file-path">commitSummary.test.ts</td>
+            <td><span class="badge badge-unit">Unit</span></td>
+            <td>No</td>
+            <td><span class="badge badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>uses context hint when only one of owner/repo is provided</td>
+            <td class="file-path">commitSummary.test.ts</td>
+            <td><span class="badge badge-unit">Unit</span></td>
+            <td>No</td>
+            <td><span class="badge badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>lists tools including Get_a_summary_of_the_latest_code_commits</td>
+            <td class="file-path">server.integration.test.ts</td>
+            <td><span class="badge badge-integration">Integration</span></td>
+            <td>Local (stdio)</td>
+            <td><span class="badge badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>calls Make_TODO_INTO_JIRA_TICKETS and returns text content</td>
+            <td class="file-path">server.integration.test.ts</td>
+            <td><span class="badge badge-integration">Integration</span></td>
+            <td>Local (stdio)</td>
+            <td><span class="badge badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>calls Get_a_summary_of_the_latest_code_commits with owner/repo</td>
+            <td class="file-path">server.integration.test.ts</td>
+            <td><span class="badge badge-integration">Integration</span></td>
+            <td>Local (stdio)</td>
+            <td><span class="badge badge-pass">PASS</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <p style="text-align:center; color:#3a4a5a; margin-top:40px; font-size:0.8rem;">
+    Test Standards Report | Based on gemini.md & engineering-standards/testing.md | workflow-orchestrator
+  </p>
+</body>
+</html>

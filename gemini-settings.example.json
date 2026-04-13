@@ -1,0 +1,72 @@
+{
+  "mcpServers": {
+    "mcp-atlassian": {
+      "command": "uvx",
+      "args": ["mcp-atlassian"],
+      "env": {
+        "JIRA_URL": "https://yourcompany.jira.com",
+        "JIRA_USERNAME": "your-email@company.com",
+        "JIRA_API_TOKEN": "YOUR_JIRA_API_TOKEN",
+        "CONFLUENCE_URL": "https://yourcompany.jira.com/wiki/",
+        "CONFLUENCE_USERNAME": "your-email@company.com",
+        "CONFLUENCE_API_TOKEN": "YOUR_CONFLUENCE_API_TOKEN"
+      }
+    },
+    "splunk-mcp-server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://your-splunk-instance.example.com/.../mcp/v1/",
+        "--header",
+        "Authorization: Bearer YOUR_SPLUNK_TOKEN"
+      ]
+    },
+    "confluence": {
+      "command": "npx",
+      "args": ["-y", "github:aaronsb/confluence-cloud-mcp"],
+      "env": {
+        "CONFLUENCE_DOMAIN": "yourcompany.jira.com",
+        "CONFLUENCE_EMAIL": "your-email@company.com",
+        "CONFLUENCE_API_TOKEN": "YOUR_CONFLUENCE_API_TOKEN"
+      }
+    },
+    "github": {
+      "httpUrl": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer YOUR_GITHUB_PAT"
+      }
+    },
+    "gemini-md-mcp": {
+      "command": "node",
+      "args": [
+        "--loader",
+        "ts-node/esm",
+        "/path/to/rubber-ducky/src/server.ts"
+      ],
+      "cwd": "/path/to/rubber-ducky"
+    },
+    "sonarqube": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--init",
+        "--pull=always",
+        "-i",
+        "--rm",
+        "-e",
+        "SONARQUBE_TOKEN",
+        "-e",
+        "SONARQUBE_ORG",
+        "-e",
+        "SONARQUBE_URL",
+        "mcp/sonarqube"
+      ],
+      "env": {
+        "SONARQUBE_TOKEN": "YOUR_SONARQUBE_TOKEN",
+        "SONARQUBE_URL": "https://sonarcloud.io",
+        "SONARQUBE_ORG": "your-org"
+      }
+    }
+  }
+}
