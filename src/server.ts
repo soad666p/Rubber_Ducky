@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+import { fileURLToPath } from "url";
 import { getCommitSummary24HoursInstructions } from "./tools/commitSummary.js";
 import {
   getJiraLinterInstructions,
@@ -17,7 +18,7 @@ import { checkForTestStandards, reportTestFailures } from "./tools/testsTools.js
 import { getCodeSummaryInstructions } from "./tools/codeTools.js";
 import { getFullSdlcFromJiraInstructions } from "./tools/sdlcTools.js";
 
-const server = new McpServer({
+export const server = new McpServer({
   name: "workflow-orchestrator-mcp",
   version: "0.1.0",
 });
@@ -88,10 +89,20 @@ server.tool(
   async (args) => getCommitSummary24HoursInstructions(args),
 );
 
-async function main() {
+export async function startStdioTransport() {
+  if (process.env.MCP_TRANSPORT === "sse") {
+    // Skip stdio if explicitly told to use sse
+    return;
+  }
+  
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Workflow Orchestrator MCP Server is running");
+  console.error("Workflow Orchestrator MCP Server is running (Stdio)");
 }
 
-main();
+const isRunDirectly =
+  process.argv[1] != null && fileURLToPath(import.meta.url) === process.argv[1];
+
+if (isRunDirectly) {
+  startStdioTransport();
+}

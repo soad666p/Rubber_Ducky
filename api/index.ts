@@ -1,11 +1,10 @@
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import express from "express";
-import { server } from "../src/server.js";
+// Set transport type for src/server.ts to avoid starting Stdio on import
+process.env.MCP_TRANSPORT = "sse";
+const { server } = await import("../src/server.js");
 
 const app = express();
-
-// Set transport type for src/server.ts to avoid starting Stdio
-process.env.MCP_TRANSPORT = "sse";
 
 let transport: SSEServerTransport | null = null;
 
