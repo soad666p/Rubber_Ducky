@@ -7,7 +7,7 @@ import { getDependencyTreeInstructions, getFlagChangeSinceLastReleaseInstruction
 import { checkForTestStandards, reportTestFailures } from "./tools/testsTools.js";
 import { getCodeSummaryInstructions } from "./tools/codeTools.js";
 import { getFullSdlcFromJiraInstructions } from "./tools/sdlcTools.js";
-const server = new McpServer({
+export const server = new McpServer({
     name: "workflow-orchestrator-mcp",
     version: "0.1.0",
 });
@@ -34,8 +34,12 @@ server.tool("Get_a_summary_of_the_latest_code_commits", {
         .describe("GitHub repo name. If omitted, use the repo from context."),
 }, async (args) => getCommitSummary24HoursInstructions(args));
 async function main() {
+    if (process.env.MCP_TRANSPORT === "sse") {
+        // Skip stdio if explicitly told to use sse
+        return;
+    }
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.error("Workflow Orchestrator MCP Server is running");
+    console.error("Workflow Orchestrator MCP Server is running (Stdio)");
 }
 main();

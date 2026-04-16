@@ -3,9 +3,36 @@
 **Repo:** https://github.com/soad666p/Rubber_Ducky
 MCP server that can be used from any MCP-compatible client (for example Gemini CLI, Claude Desktop, or other LLM tools). It exposes workflow tools (Jira, Confluence, GitHub, Splunk, SonarQube, etc.) and guides through proposals, planning, implementation, testing, log analysis, and PR creation.
 
-## MCP client configuration
+## Extension Installation (One-Click)
 
-Each client stores MCP server configuration in a different place. For Gemini CLI, configuration is read from:
+You can install this as a Gemini CLI extension directly from GitHub:
+
+```bash
+gemini extensions install https://github.com/soad666p/Rubber_Ducky
+```
+
+**Note:** If running locally, you must manually run `npm install` in the extension directory (usually `~/.gemini/extensions/rubber-ducky`).
+
+## Vercel Deployment (Cloud Hosting)
+
+To host your own instance of this MCP server on Vercel:
+
+1.  **Fork** this repository.
+2.  **Deploy** to Vercel:
+    *   Connect your fork to Vercel.
+    *   Vercel will auto-detect the project as a Node.js project.
+3.  **Configure Environment Variables** in Vercel:
+    *   Add any tokens you need (e.g., `JIRA_API_TOKEN`, `GITHUB_TOKEN`).
+4.  **Update `gemini-extension.json`**:
+    *   In your fork, update the `url` in `gemini-extension.json` to point to your Vercel URL (e.g., `https://your-app.vercel.app/api/sse`).
+5.  **Install**:
+    ```bash
+    gemini extensions install https://github.com/YOUR_USERNAME/Rubber_Ducky
+    ```
+
+---
+
+## MCP client configuration (Manual)
 
 - **`~/.gemini/settings.json`**
 
