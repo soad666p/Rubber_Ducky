@@ -1,0 +1,21 @@
+{
+  "name": "rubber-ducky",
+  "version": "0.1.0",
+  "description": "Workflow Orchestrator MCP",
+  "mcpServers": {
+    "rubber-ducky": {
+      "url": "https://YOUR_VERCEL_APP_URL/api/sse",
+      "description": "Cloud-hosted Rubber Ducky MCP server. REPLACE YOUR_VERCEL_APP_URL with your actual Vercel deployment URL."
+    },
+    "rubber-ducky-local": {
+      "command": "npx",
+      "args": [
+        "ts-node",
+        "--esm",
+        "${extensionPath}/src/server.ts"
+      ],
+      "cwd": "${extensionPath}",
+      "description": "Local version of Rubber Ducky (requires running 'npm install' in the extension directory)."
+    }
+  }
+}
