@@ -8,10 +8,10 @@
       "description": "Cloud-hosted Rubber Ducky MCP server."
     },
     "rubber-ducky-local": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "ts-node",
-        "--esm",
+        "--loader",
+        "ts-node/esm",
         "${extensionPath}/src/server.ts"
       ],
       "cwd": "${extensionPath}",
