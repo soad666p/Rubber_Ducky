@@ -1,7 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { fileURLToPath } from "url";
 import { getCommitSummary24HoursInstructions } from "./tools/commitSummary.js";
 import {
   getJiraLinterInstructions,
@@ -100,9 +99,6 @@ export async function startStdioTransport() {
   console.error("Workflow Orchestrator MCP Server is running (Stdio)");
 }
 
-const isRunDirectly =
-  process.argv[1] != null && fileURLToPath(import.meta.url) === process.argv[1];
-
-if (isRunDirectly) {
+if (process.env.MCP_TRANSPORT !== "sse") {
   startStdioTransport();
 }

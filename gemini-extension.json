@@ -4,8 +4,8 @@
   "description": "Workflow Orchestrator MCP",
   "mcpServers": {
     "rubber-ducky": {
-      "url": "https://YOUR_VERCEL_APP_URL/api/sse",
-      "description": "Cloud-hosted Rubber Ducky MCP server. REPLACE YOUR_VERCEL_APP_URL with your actual Vercel deployment URL."
+      "url": "https://rubber-ducky-7f4txwa74-soad666ps-projects.vercel.app/api/sse",
+      "description": "Cloud-hosted Rubber Ducky MCP server."
     },
     "rubber-ducky-local": {
       "command": "npx",
