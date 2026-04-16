@@ -13,6 +13,8 @@ Add or edit the `mcpServers` section there. The **gemini-md-mcp** entry should p
 
 If you are using a client other than Gemini, use the equivalent MCP server configuration location and schema for that client, and point it to this same server entrypoint.
 
+have a look at the PRD
+
 ## Setup
 
 ```bash
