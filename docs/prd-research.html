@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Rubber Duck: Contextual Mentorship Engine</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    max-height: 400px;
+}
+.glass-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+.nav-link {
+    transition: color 0.2s ease-in-out;
+}
+.nav-link:hover {
+    color: #0284c7;
+}
+.tab-btn {
+    transition: all 0.2s ease;
+}
+.tab-btn.active {
+    background-color: #0284c7;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.4);
+}
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease-in;
+}
+.tab-content.active {
+    display: block;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.interactive-toggle {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.interactive-toggle:hover {
+    transform: translateY(-2px);
+}
+.hidden-section {
+    display: none;
+}
+</style>
+</head>
+<body class="antialiased">
+
+<!-- Chosen Palette: Warm Neutrals with Vibrant Blue & Coral Accents (Slate-50 bg, Sky-600 primary, Rose-500 accent, Emerald-500 success) -->
+<!-- Application Structure Plan: A dashboard-style single-page interactive report. It begins with a high-level executive summary and hackathon context, flows into the problem statement (Focus Debt) using stark metrics, transitions to the solution (Mentorship & RTR_MCP architecture) using interactive tabs and step-by-step layouts, and concludes with competitive analysis. This structure guides the user logically from "Why this matters" to "How it works" and "Why it wins", using tabs to compress persona data and toggles to explain complex paradigms without overwhelming vertical scroll. -->
+<!-- Visualization & Content Choices: Attention Drop -> Goal: Change -> Bar Chart -> Best way to show temporal decline (NO SVG). Quality Dividend -> Goal: Inform -> Doughnut Chart -> Shows part-to-whole defect reduction (NO SVG). Personas -> Goal: Organize -> Interactive HTML Tabs -> Allows deep dive into 4 personas cleanly (NO SVG). RTR_MCP Flywheel -> Goal: Organize -> HTML/CSS Grid with Unicode Arrows -> Shows process flow without Mermaid/SVG. Competitive Landscape -> Goal: Compare -> Radar Chart -> Multi-axis comparison of tools (NO SVG). -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200 shadow-sm px-6 py-4">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="text-2xl font-black tracking-tight text-slate-800 flex items-center gap-2">
+            <span class="text-3xl">&#129414;</span> AI Rubber Duck
+        </div>
+        <div class="flex gap-6 text-sm font-semibold text-slate-500">
+            <a href="#executive" class="nav-link">Vision</a>
+            <a href="#problem" class="nav-link">Focus Debt</a>
+            <a href="#solution" class="nav-link">Solution</a>
+            <a href="#architecture" class="nav-link">Architecture</a>
+            <a href="#competition" class="nav-link">Competition</a>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+    <section id="executive" class="text-center max-w-4xl mx-auto space-y-8 mt-10">
+        <p class="text-sm font-bold tracking-widest text-sky-600 uppercase">Product Requirements & Market Research</p>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight">
+            Curing <span class="text-rose-500">Focus Debt</span> Through Contextual Mentorship.
+        </h1>
+        <p class="text-xl text-slate-600 leading-relaxed">
+            The AI Rubber Duck is a visionary shift-left assistant. It moves beyond basic syntax autocomplete to act as a proactive collaborative partner, enforcing the 3 W's of Testing and eliminating "Network Hopping."
+        </p>
+        <div class="inline-flex flex-wrap justify-center gap-4 pt-4">
+            <div class="bg-indigo-50 border border-indigo-200 text-indigo-700 px-4 py-2 rounded-full text-sm font-bold">
+                &#127942; AtlanTec AI Challenge 2026
+            </div>
+            <div class="bg-sky-50 border border-sky-200 text-sky-700 px-4 py-2 rounded-full text-sm font-bold">
+                &#128197; Submission: April 14, 2026
+            </div>
+        </div>
+    </section>
+
+    <section id="problem">
+        <div class="mb-10 text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">The "Focus Debt" Crisis</h2>
+            <p class="text-slate-600 text-lg">
+                This section explores the severe impact of interruptions on modern software engineering. Based on research by Dr. Gloria Mark, we visualize the exponential cognitive cost of context switching and how the modern attention span has collapsed, turning senior engineers into overwhelmed "human routers."
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 flex flex-col justify-center items-center text-center border-t-4 border-rose-500 interactive-toggle" onclick="toggleMetricDetail()">
+                <div class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Recovery Time</div>
+                <div class="text-5xl font-black text-rose-500 mb-2">23<span class="text-2xl text-slate-400">m</span> 15<span class="text-2xl text-slate-400">s</span></div>
+                <p class="text-sm text-slate-500 mt-2">To return to original task after interruption.</p>
+                <div id="metric-detail" class="hidden-section mt-4 pt-4 border-t border-slate-100 text-sm text-slate-600 bg-slate-50 p-3 rounded">
+                    Workers typically handle <strong>two intervening tasks</strong> before resuming. The cognitive "re-indexing" cost is exponential.
+                </div>
+                <div class="text-xs text-sky-500 mt-4 font-semibold">Click to expand &#8595;</div>
+            </div>
+            
+            <div class="glass-card p-6 col-span-1 md:col-span-2">
+                <h3 class="text-lg font-bold text-slate-800 mb-4 text-center">The Attention Collapse (2004 - 2024)</h3>
+                <div class="chart-container">
+                    <canvas id="attentionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution">
+        <div class="mb-10 text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">The Solution: Active Mentorship</h2>
+            <p class="text-slate-600 text-lg">
+                Here we contrast traditional problem-solving methods with our active AI solution. By simulating pair programming, the AI Rubber Duck secures a significant "Quality Dividend." We also map out exactly how this tool provides specific value metrics to different roles within the engineering ecosystem.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+            <div class="glass-card p-6 lg:col-span-5">
+                <h3 class="text-lg font-bold text-slate-800 mb-4 text-center">The Quality Dividend</h3>
+                <div class="chart-container" style="height: 250px;">
+                    <canvas id="qualityChart"></canvas>
+                </div>
+                <p class="text-center text-sm text-slate-500 mt-4 px-4">
+                    Based on University of Utah studies, pair programming yields fewer defects and boosts developer confidence by 90%.
+                </p>
+            </div>
+
+            <div class="glass-card p-8 lg:col-span-7 bg-slate-800 text-white border-none">
+                <h3 class="text-2xl font-bold mb-6 text-sky-400">System 1 vs System 2 Thinking</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4 items-start border-b border-slate-700 pb-6">
+                        <div class="text-4xl">&#129414;</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-200">Passive (Traditional Duck)</h4>
+                            <p class="text-slate-400 text-sm mt-1">Developer explains problem line-by-line to an inanimate object to trigger analytical (System 2) thinking. High effort, zero contextual feedback.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="text-4xl">&#129302;</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-emerald-400">Active (AI Rubber Duck)</h4>
+                            <p class="text-slate-300 text-sm mt-1">Acts as an active listener. Asks probing questions: <em class="text-sky-300">"Does this align with our ADR on Micro-frontends?"</em> Forces logic justification against organizational standards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card p-8">
+            <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Target Personas & Value Metrics</h3>
+            <div class="flex flex-wrap justify-center gap-2 mb-8 border-b border-slate-200 pb-4">
+                <button class="tab-btn active px-6 py-2 rounded-full text-sm font-bold bg-slate-100 text-slate-600" onclick="switchTab('mid')">Mid-Level Eng.</button>
+                <button class="tab-btn px-6 py-2 rounded-full text-sm font-bold bg-slate-100 text-slate-600" onclick="switchTab('junior')">Junior / Grad</button>
+                <button class="tab-btn px-6 py-2 rounded-full text-sm font-bold bg-slate-100 text-slate-600" onclick="switchTab('cto')">The CTO</button>
+                <button class="tab-btn px-6 py-2 rounded-full text-sm font-bold bg-slate-100 text-slate-600" onclick="switchTab('senior')">Senior Eng.</button>
+            </div>
+
+            <div id="tab-mid" class="tab-content active text-center max-w-2xl mx-auto">
+                <div class="text-5xl mb-4">&#128187;</div>
+                <h4 class="text-2xl font-bold text-sky-600 mb-2">The Active Builder</h4>
+                <p class="text-slate-600 mb-6">Wants to avoid interrupting seniors for trivial architectural questions.</p>
+                <div class="bg-sky-50 text-sky-800 p-4 rounded-lg inline-block border border-sky-100">
+                    <strong>Success Metric:</strong> Significant reduction in "quick question" Slack pings.
+                </div>
+            </div>
+
+            <div id="tab-junior" class="tab-content text-center max-w-2xl mx-auto">
+                <div class="text-5xl mb-4">&#127891;</div>
+                <h4 class="text-2xl font-bold text-emerald-600 mb-2">The Learner</h4>
+                <p class="text-slate-600 mb-6">Navigating a massive, unfamiliar codebase with complex internal patterns.</p>
+                <div class="bg-emerald-50 text-emerald-800 p-4 rounded-lg inline-block border border-emerald-100">
+                    <strong>Success Metric:</strong> Faster Onboarding & reduced Time-to-First-PR.
+                </div>
+            </div>
+
+            <div id="tab-cto" class="tab-content text-center max-w-2xl mx-auto">
+                <div class="text-5xl mb-4">&#128640;</div>
+                <h4 class="text-2xl font-bold text-rose-600 mb-2">The Rapid Prototyper</h4>
+                <p class="text-slate-600 mb-6">Needs high-level summaries of Jira progress and rapid context-switching capabilities.</p>
+                <div class="bg-rose-50 text-rose-800 p-4 rounded-lg inline-block border border-rose-100">
+                    <strong>Success Metric:</strong> Delivery of high-quality, context-aware prototypes quickly.
+                </div>
+            </div>
+
+            <div id="tab-senior" class="tab-content text-center max-w-2xl mx-auto">
+                <div class="text-5xl mb-4">&#129497;</div>
+                <h4 class="text-2xl font-bold text-purple-600 mb-2">The Knowledge Source</h4>
+                <p class="text-slate-600 mb-6">Tired of answering the same pattern questions repeatedly, draining energy.</p>
+                <div class="bg-purple-50 text-purple-800 p-4 rounded-lg inline-block border border-purple-100">
+                    <strong>Success Metric:</strong> Protected "Deep Focus" time reclaimed for complex engineering.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture">
+        <div class="mb-10 text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">The "Context Flywheel" Moat</h2>
+            <p class="text-slate-600 text-lg">
+                This section breaks down the core technical advantage: the RTR_MCP (Model Context Protocol). It illustrates how the tool integrates into existing workflows without retraining, connecting fragmented data sources to create an organizational self-learning loop.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 bg-gradient-to-br from-slate-50 to-slate-100">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center w-full md:w-1/4">
+                    <div class="text-3xl mb-2">&#128221;</div>
+                    <div class="font-bold text-slate-800">1. Incentivized Docs</div>
+                    <div class="text-xs text-slate-500 mt-2">Seniors write docs to "train" the Duck shield.</div>
+                </div>
+                <div class="text-3xl text-slate-300 rotate-90 md:rotate-0">&#10140;</div>
+                <div class="bg-sky-600 text-white p-6 rounded-xl shadow-md border border-sky-700 text-center w-full md:w-1/4 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-sky-400"></div>
+                    <div class="text-3xl mb-2">&#9881;&#65039;</div>
+                    <div class="font-bold">2. Instant Indexing</div>
+                    <div class="text-xs text-sky-100 mt-2">Duck consumes docs instantly via MCP layer.</div>
+                </div>
+                <div class="text-3xl text-slate-300 rotate-90 md:rotate-0">&#10140;</div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center w-full md:w-1/4">
+                    <div class="text-3xl mb-2">&#128680;</div>
+                    <div class="font-bold text-slate-800">3. Deflected Pings</div>
+                    <div class="text-xs text-slate-500 mt-2">Junior questions handled automatically.</div>
+                </div>
+            </div>
+
+            <h3 class="text-center font-bold text-slate-700 mb-6 uppercase tracking-wider text-sm">Specialized MCP Servers Integrated</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-slate-800 text-emerald-400 font-mono text-sm p-4 rounded-lg text-center shadow-inner">
+                    &#128194; GitHub MCP
+                </div>
+                <div class="bg-slate-800 text-sky-400 font-mono text-sm p-4 rounded-lg text-center shadow-inner">
+                    &#128203; Jira MCP
+                </div>
+                <div class="bg-slate-800 text-purple-400 font-mono text-sm p-4 rounded-lg text-center shadow-inner">
+                    &#128200; Splunk MCP
+                </div>
+                <div class="bg-slate-800 text-rose-400 font-mono text-sm p-4 rounded-lg text-center shadow-inner">
+                    &#128161; Dependabot MCP
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="competition" class="pb-12">
+        <div class="mb-10 text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">Competitive Differentiation</h2>
+            <p class="text-slate-600 text-lg">
+                Finally, we compare the AI Rubber Duck against dominant market players like Cursor/Copilot and Sourcegraph Cody. This visualization highlights our strategic choice to prioritize architecture, guardrails, and context over pure, unchecked code generation velocity.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 max-w-4xl mx-auto">
+            <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Strategic Radar Analysis</h3>
+            <div class="chart-container" style="height: 400px; max-height: 500px;">
+                <canvas id="radarChart"></canvas>
+            </div>
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-center">
+                <div class="p-4 bg-sky-50 rounded border border-sky-100">
+                    <strong class="text-sky-700 block mb-1">AI Rubber Duck</strong>
+                    Focuses on Quality, Guardrails (3 W's), and Architectural Integrity.
+                </div>
+                <div class="p-4 bg-slate-100 rounded border border-slate-200">
+                    <strong class="text-slate-700 block mb-1">Cursor / Copilot</strong>
+                    Optimized heavily for direct Code Generation Velocity and feature speed.
+                </div>
+                <div class="p-4 bg-slate-100 rounded border border-slate-200">
+                    <strong class="text-slate-700 block mb-1">Sourcegraph Cody</strong>
+                    Strongest in pure semantic search and knowledge retrieval indexing.
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+function wrapText(str) {
+    if (str.length <= 16) return str;
+    let words = str.split(' ');
+    let lines = [];
+    let currentLine = '';
+    words.forEach(word => {
+        if ((currentLine + word).length > 16) {
+            if (currentLine) lines.push(currentLine.trim());
+            currentLine = word + ' ';
+        } else {
+            currentLine += word + ' ';
+        }
+    });
+    if (currentLine) lines.push(currentLine.trim());
+    return lines;
+}
+
+const tooltipCfg = {
+    callbacks: {
+        title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        }
+    }
+};
+
+Chart.defaults.font.family = "'Inter', system-ui, -apple-system, sans-serif";
+Chart.defaults.color = '#64748b';
+
+const attCtx = document.getElementById('attentionChart').getContext('2d');
+new Chart(attCtx, {
+    type: 'bar',
+    data: {
+        labels: [wrapText('Average Attention Span in 2004'), wrapText('Average Attention Span in 2024')],
+        datasets: [{
+            label: 'Seconds',
+            data: [150, 47],
+            backgroundColor: ['#cbd5e1', '#f43f5e'],
+            borderRadius: 8,
+            borderSkipped: false
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: tooltipCfg
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: '#f1f5f9' },
+                title: { display: true, text: 'Time (Seconds)' }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
+    }
+});
+
+const qualCtx = document.getElementById('qualityChart').getContext('2d');
+new Chart(qualCtx, {
+    type: 'doughnut',
+    data: {
+        labels: [wrapText('Defects Eliminated via Context'), wrapText('Remaining Baseline Defects')],
+        datasets: [{
+            data: [15, 85],
+            backgroundColor: ['#10b981', '#e2e8f0'],
+            borderWidth: 0,
+            hoverOffset: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+            legend: { position: 'right' },
+            tooltip: tooltipCfg
+        }
+    }
+});
+
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: [
+            wrapText('Quality & Architecture'),
+            wrapText('Feature Velocity'),
+            wrapText('Guardrails (3 Ws)'),
+            wrapText('Focus Protection'),
+            wrapText('Knowledge Retrieval')
+        ],
+        datasets: [
+            {
+                label: 'AI Rubber Duck',
+                data: [95, 60, 100, 90, 85],
+                backgroundColor: 'rgba(2, 132, 199, 0.2)',
+                borderColor: '#0284c7',
+                pointBackgroundColor: '#0284c7',
+                borderWidth: 3
+            },
+            {
+                label: 'Cursor / Copilot',
+                data: [40, 95, 20, 30, 50],
+                backgroundColor: 'rgba(226, 232, 240, 0.4)',
+                borderColor: '#94a3b8',
+                pointBackgroundColor: '#94a3b8',
+                borderWidth: 2
+            },
+            {
+                label: 'Sourcegraph Cody',
+                data: [60, 70, 40, 40, 95],
+                backgroundColor: 'rgba(241, 245, 249, 0.4)',
+                borderColor: '#cbd5e1',
+                pointBackgroundColor: '#cbd5e1',
+                borderWidth: 2,
+                borderDash: [5, 5]
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                angleLines: { color: '#f1f5f9' },
+                grid: { color: '#f1f5f9' },
+                pointLabels: { color: '#475569', font: { size: 12, weight: 'bold' } },
+                ticks: { display: false, min: 0, max: 100 }
+            }
+        },
+        plugins: {
+            legend: { position: 'top' },
+            tooltip: tooltipCfg
+        }
+    }
+});
+
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tabId).classList.add('active');
+}
+
+function toggleMetricDetail() {
+    const detail = document.getElementById('metric-detail');
+    if (detail.classList.contains('hidden-section')) {
+        detail.classList.remove('hidden-section');
+        detail.classList.add('block');
+    } else {
+        detail.classList.add('hidden-section');
+        detail.classList.remove('block');
+    }
+}
+</script>
+</body>
+</html>
