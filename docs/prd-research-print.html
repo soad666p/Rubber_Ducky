@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Rubber Duck - Persona Infographic</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+    
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #f8fafc;
+        /* Hides scrollbar for cleaner screenshots if it fits on screen */
+        scrollbar-width: none; 
+    }
+    body::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: 180px;
+        margin-top: 1rem;
+    }
+
+    .persona-card {
+        border-radius: 1.5rem;
+        padding: 2rem;
+        display: flex;
+        flex-col;
+        justify-content: space-between;
+        background: #ffffff;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        border: 1px solid rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Decorative background blobs for visual flair */
+    .blob {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.15;
+        z-index: 0;
+        top: -20px;
+        right: -20px;
+    }
+</style>
+</head>
+<body class="p-8 md:p-12 min-h-screen flex flex-col justify-center items-center">
+
+<!-- Chosen Palette: Crisp Light Background with distinct semantic colors (Emerald, Sky, Purple, Rose) for immediate visual segregation. -->
+<!-- Application Structure Plan: A 2x2 grid layout optimized for a standard 16:9 or 16:10 desktop screenshot. Removes all interactive noise (nav bars, toggles) to provide a clean, static infographic feel. Each quadrant tells a complete micro-story of a persona's pain, the AI Duck's solution, and the resulting metric. -->
+<!-- Visualization & Content Choices: 
+  Junior -> Goal: Compare -> Bar Chart (Days to First PR).
+  Mid-Level -> Goal: Change -> Line Chart (Slack Pings dropping).
+  Senior -> Goal: Inform -> Doughnut Chart (Focus Time vs Interruption).
+  CTO -> Goal: Compare -> Horizontal Bar Chart (Context Gathering Time).
+  All choices use Canvas/Chart.js to ensure rich visual data without relying on SVG. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<div class="max-w-6xl w-full">
+    
+    <!-- Infographic Header -->
+    <div class="text-center mb-10 relative z-10">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-3">
+            AI Rubber Duck: <span class="text-sky-600">Ecosystem Value</span>
+        </h1>
+        <p class="text-lg text-slate-500 font-semibold uppercase tracking-widest">
+            Contextual Mentorship Across All Engineering Roles
+        </p>
+    </div>
+
+    <!-- 2x2 Persona Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+
+        <!-- 1. JUNIOR / GRAD -->
+        <div class="persona-card border-b-4 border-emerald-500">
+            <div class="blob bg-emerald-500"></div>
+            <div class="relative z-10">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Secondary User</div>
+                        <h2 class="text-2xl font-extrabold text-slate-800">Junior / Grad Eng.</h2>
+                        <h3 class="text-md font-semibold text-slate-500">The "Learner"</h3>
+                    </div>
+                    <div class="text-4xl bg-emerald-50 p-3 rounded-2xl border border-emerald-100">&#127891;</div>
+                </div>
+                
+                <div class="space-y-3 mb-6">
+                    <p class="text-sm text-slate-600"><strong class="text-slate-800">Pain Point:</strong> Navigating a massive codebase with complex internal RTR patterns.</p>
+                    <p class="text-sm text-slate-600"><strong class="text-emerald-600">Success Metric:</strong> Drastically faster onboarding & Time-to-First-PR.</p>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="juniorChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. MID-LEVEL ENG -->
+        <div class="persona-card border-b-4 border-sky-500">
+            <div class="blob bg-sky-500"></div>
+            <div class="relative z-10">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">Primary Champion</div>
+                        <h2 class="text-2xl font-extrabold text-slate-800">Mid-Level Eng.</h2>
+                        <h3 class="text-md font-semibold text-slate-500">The "Active Builder"</h3>
+                    </div>
+                    <div class="text-4xl bg-sky-50 p-3 rounded-2xl border border-sky-100">&#128187;</div>
+                </div>
+                
+                <div class="space-y-3 mb-6">
+                    <p class="text-sm text-slate-600"><strong class="text-slate-800">Pain Point:</strong> Wants to validate architectural choices without interrupting seniors.</p>
+                    <p class="text-sm text-slate-600"><strong class="text-sky-600">Success Metric:</strong> Reduction in "quick question" Slack pings.</p>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="midChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SENIOR ENG -->
+        <div class="persona-card border-b-4 border-purple-500">
+            <div class="blob bg-purple-500"></div>
+            <div class="relative z-10">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="text-xs font-bold text-purple-600 uppercase tracking-widest mb-1">Context Provider</div>
+                        <h2 class="text-2xl font-extrabold text-slate-800">Senior Eng.</h2>
+                        <h3 class="text-md font-semibold text-slate-500">The "Knowledge Source"</h3>
+                    </div>
+                    <div class="text-4xl bg-purple-50 p-3 rounded-2xl border border-purple-100">&#129497;</div>
+                </div>
+                
+                <div class="space-y-3 mb-6">
+                    <p class="text-sm text-slate-600"><strong class="text-slate-800">Pain Point:</strong> Answering identical pattern questions repeatedly; loss of flow state.</p>
+                    <p class="text-sm text-slate-600"><strong class="text-purple-600">Success Metric:</strong> Protected "Deep Focus" time reclaimed.</p>
+                </div>
+                
+                <div class="chart-container flex justify-center">
+                    <div style="height: 100%; width: 60%;"><canvas id="seniorChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. CTO / ARCHITECT -->
+        <div class="persona-card border-b-4 border-rose-500">
+            <div class="blob bg-rose-500"></div>
+            <div class="relative z-10">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="text-xs font-bold text-rose-600 uppercase tracking-widest mb-1">Secondary User</div>
+                        <h2 class="text-2xl font-extrabold text-slate-800">The CTO</h2>
+                        <h3 class="text-md font-semibold text-slate-500">The "Rapid Prototyper"</h3>
+                    </div>
+                    <div class="text-4xl bg-rose-50 p-3 rounded-2xl border border-rose-100">&#128640;</div>
+                </div>
+                
+                <div class="space-y-3 mb-6">
+                    <p class="text-sm text-slate-600"><strong class="text-slate-800">Pain Point:</strong> Requires high-level Jira summaries and rapid codebase context-switching.</p>
+                    <p class="text-sm text-slate-600"><strong class="text-rose-600">Success Metric:</strong> Delivery of high-quality, context-aware prototypes.</p>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="ctoChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// Utility for label wrapping
+function wrapLabel(label) {
+    if (label.length <= 14) return label;
+    let words = label.split(' ');
+    let lines = [];
+    let currentLine = '';
+    words.forEach(word => {
+        if ((currentLine + word).length > 14) {
+            if (currentLine) lines.push(currentLine.trim());
+            currentLine = word + ' ';
+        } else {
+            currentLine += word + ' ';
+        }
+    });
+    if (currentLine) lines.push(currentLine.trim());
+    return lines;
+}
+
+const tooltipConfig = {
+    callbacks: {
+        title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            return Array.isArray(label) ? label.join(' ') : label;
+        }
+    }
+};
+
+Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+Chart.defaults.color = '#64748b';
+Chart.defaults.plugins.legend.display = false;
+
+// 1. JUNIOR CHART (Bar - Time to PR)
+new Chart(document.getElementById('juniorChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+        labels: [wrapLabel('Without Duck'), wrapLabel('With AI Duck')],
+        datasets: [{
+            data: [14, 4],
+            backgroundColor: ['#e2e8f0', '#10b981'],
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { tooltip: tooltipConfig },
+        scales: {
+            y: { beginAtZero: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'Days to First PR', font: {size: 10} } },
+            x: { grid: { display: false } }
+        }
+    }
+});
+
+// 2. MID-LEVEL CHART (Line - Slack Pings)
+new Chart(document.getElementById('midChart').getContext('2d'), {
+    type: 'line',
+    data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        datasets: [
+            { label: 'Before', data: [8, 9, 7, 8, 10], borderColor: '#cbd5e1', borderDash: [5, 5], tension: 0.4 },
+            { label: 'With Duck', data: [8, 4, 2, 1, 1], borderColor: '#0ea5e9', backgroundColor: 'rgba(14, 165, 233, 0.1)', fill: true, tension: 0.4 }
+        ]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { tooltip: tooltipConfig, legend: {display: true, position: 'top', labels: {boxWidth: 10, font:{size:10}}} },
+        scales: {
+            y: { beginAtZero: true, grid: { color: '#f1f5f9' }, title: { display: true, text: 'Daily Interruptions', font: {size: 10} } },
+            x: { grid: { display: false } }
+        }
+    }
+});
+
+// 3. SENIOR CHART (Doughnut - Focus Time)
+new Chart(document.getElementById('seniorChart').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+        labels: [wrapLabel('Deep Focus Time'), wrapLabel('Context Switching / Mentoring')],
+        datasets: [{
+            data: [75, 25],
+            backgroundColor: ['#8b5cf6', '#f1f5f9'],
+            borderWidth: 0,
+            hoverOffset: 4
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false, cutout: '75%',
+        plugins: { tooltip: tooltipConfig }
+    },
+    plugins: [{
+        id: 'textCenter',
+        beforeDraw: function(chart) {
+            var width = chart.width, height = chart.height, ctx = chart.ctx;
+            ctx.restore();
+            var fontSize = (height / 80).toFixed(2);
+            ctx.font = "bold " + fontSize + "em sans-serif";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = "#8b5cf6";
+            var text = "75%", textX = Math.round((width - ctx.measureText(text).width) / 2), textY = height / 2;
+            ctx.fillText(text, textX, textY);
+            ctx.save();
+        }
+    }]
+});
+
+// 4. CTO CHART (Horizontal Bar - Time Allocation)
+new Chart(document.getElementById('ctoChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+        labels: [wrapLabel('Context Gathering (Jira/Docs)'), wrapLabel('Actual Prototyping')],
+        datasets: [
+            { label: 'Legacy Flow', data: [60, 40], backgroundColor: '#e2e8f0', borderRadius: 4 },
+            { label: 'Duck Flow', data: [10, 90], backgroundColor: '#f43f5e', borderRadius: 4 }
+        ]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true, maintainAspectRatio: false,
+        plugins: { tooltip: tooltipConfig, legend: {display: true, position: 'top', labels: {boxWidth: 10, font:{size:10}}} },
+        scales: {
+            x: { stacked: true, grid: { color: '#f1f5f9' }, max: 100, title: { display: true, text: '% of Time', font: {size: 10} } },
+            y: { stacked: true, grid: { display: false }, ticks: {font: {size: 10}} }
+        }
+    }
+});
+</script>
+</body>
+</html>

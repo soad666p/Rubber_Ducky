@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Rubber Duck: UX Storyboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Fira+Code:wght@400;600&display=swap');
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0f172a; /* Slate 900 */
+        color: #f8fafc;
+        overflow-x: hidden;
+    }
+    .code-font {
+        font-family: 'Fira Code', monospace;
+    }
+    
+    .story-panel {
+        position: relative;
+        padding: 3rem;
+        border-radius: 1.5rem;
+        background: #1e293b;
+        border: 1px solid #334155;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        margin-bottom: 4rem;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.6s ease-out forwards;
+    }
+
+    /* Staggering the animations based on child index */
+    .story-panel:nth-child(1) { animation-delay: 0.1s; }
+    .story-panel:nth-child(2) { animation-delay: 0.3s; }
+    .story-panel:nth-child(3) { animation-delay: 0.5s; }
+    .story-panel:nth-child(4) { animation-delay: 0.7s; }
+    .story-panel:nth-child(5) { animation-delay: 0.9s; }
+    .story-panel:nth-child(6) { animation-delay: 1.1s; }
+
+    @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .connector-line {
+        position: absolute;
+        top: -4rem;
+        left: 50%;
+        width: 4px;
+        height: 4rem;
+        background: linear-gradient(to bottom, transparent, #0ea5e9);
+        transform: translateX(-50%);
+    }
+
+    .chat-bubble-user {
+        background: #334155;
+        border-radius: 1rem 1rem 0 1rem;
+        padding: 1rem 1.5rem;
+        display: inline-block;
+        max-width: 80%;
+        border: 1px solid #475569;
+    }
+
+    .chat-bubble-duck {
+        background: rgba(14, 165, 233, 0.1);
+        border: 1px solid rgba(14, 165, 233, 0.3);
+        border-radius: 1rem 1rem 1rem 0;
+        padding: 1rem 1.5rem;
+        display: inline-block;
+        max-width: 80%;
+    }
+
+    .mcp-node {
+        background: #0f172a;
+        border: 1px solid #8b5cf6;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        text-align: center;
+        box-shadow: inset 0 0 15px rgba(139, 92, 246, 0.2);
+    }
+</style>
+</head>
+<body class="p-6 md:p-12">
+
+<div class="max-w-4xl mx-auto">
+    
+    <header class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-purple-500 mb-4 tracking-tight">
+            The Contextual Mentorship Flow
+        </h1>
+        <p class="text-lg text-slate-400 font-medium">Storyboard: How the AI Rubber Duck cures Focus Debt in real-time.</p>
+    </header>
+
+    <div class="relative">
+
+        <!-- SCENE 1: The Problem -->
+        <div class="story-panel border-t-4 border-t-rose-500">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold flex items-center gap-3"><span class="text-3xl">&#128187;</span> Scene 1: The Impending Interruption</h2>
+                <span class="bg-rose-500/20 text-rose-400 text-xs font-bold px-3 py-1 rounded-full border border-rose-500/30">The Risk: Focus Debt</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        <strong>Sarah (Mid-Level Engineer)</strong> is working on Jira Ticket `RTR-842` (implementing a new micro-frontend checkout). She hits a roadblock regarding state management standards.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        She considers pinging <strong>Dave (Senior Engineer)</strong> on Slack. But Dave is in a "Flow State". If interrupted, Dr. Gloria Mark's research shows it will cost Dave <strong class="text-rose-400">23 minutes and 15 seconds</strong> to recover his focus.
+                    </p>
+                </div>
+                <div class="bg-slate-900 rounded-xl p-6 border border-slate-700 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-rose-500/5 animate-pulse"></div>
+                    <div class="text-4xl mb-2">&#129497;</div>
+                    <div class="text-sm font-bold text-slate-400 mb-1">Dave's Status</div>
+                    <div class="text-emerald-400 font-mono text-xs mb-4">● Do Not Disturb (Deep Work)</div>
+                    <div class="text-xs text-slate-500 line-through">"Hey Dave, quick question about Redux vs Context here?"</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 2: The Action -->
+        <div class="story-panel border-t-4 border-t-sky-500">
+            <div class="connector-line"></div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold flex items-center gap-3"><span class="text-3xl">&#129414;</span> Scene 2: Engaging the Duck</h2>
+                <span class="bg-sky-500/20 text-sky-400 text-xs font-bold px-3 py-1 rounded-full border border-sky-500/30">Shift-Left Assistance</span>
+            </div>
+            
+            <p class="text-slate-300 leading-relaxed mb-6">
+                Instead of interrupting Dave, Sarah opens her IDE terminal and engages the AI Rubber Duck. She doesn't need complex prompt engineering; the environment already knows who she is and where she is.
+            </p>
+
+            <div class="bg-black rounded-lg p-4 font-mono text-sm shadow-inner border border-slate-800">
+                <div class="text-emerald-500 mb-2">$ duck chat</div>
+                <div class="flex justify-end mb-4 mt-4">
+                    <div class="chat-bubble-user text-slate-200">
+                        I'm building the checkout component for RTR-842. Should I use global state or drill props for the cart validation?
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 3: The Engine -->
+        <div class="story-panel border-t-4 border-t-purple-500 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
+            <div class="connector-line"></div>
+            <div class="flex justify-between items-center mb-6 relative z-10">
+                <h2 class="text-2xl font-bold flex items-center gap-3"><span class="text-3xl">&#9881;&#65039;</span> Scene 3: The RTR_MCP Orchestrator</h2>
+                <span class="bg-purple-500/20 text-purple-400 text-xs font-bold px-3 py-1 rounded-full border border-purple-500/30">The Context Flywheel</span>
+            </div>
+            
+            <p class="text-slate-300 leading-relaxed mb-6 relative z-10">
+                Under the hood, the Duck doesn't just guess based on generic internet training. It acts as an orchestrator, instantly gathering context from Rent the Runway's specific infrastructure via <strong>Model Context Protocol (MCP)</strong> servers.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+                <div class="mcp-node">
+                    <div class="text-2xl mb-2">&#128203;</div>
+                    <div class="font-bold text-sky-300 text-sm">Jira MCP</div>
+                    <div class="text-xs text-slate-400 mt-2">Fetches Ticket RTR-842. Notes it requires strict PCI compliance.</div>
+                </div>
+                <div class="mcp-node">
+                    <div class="text-2xl mb-2">&#128194;</div>
+                    <div class="font-bold text-purple-300 text-sm">GitHub MCP</div>
+                    <div class="text-xs text-slate-400 mt-2">Reads `architecture/state-management.md` written by Dave last month.</div>
+                </div>
+                <div class="mcp-node border-emerald-500 shadow-[inset_0_0_15px_rgba(16,185,129,0.2)]">
+                    <div class="text-2xl mb-2">&#128221;</div>
+                    <div class="font-bold text-emerald-300 text-sm">Local IDE</div>
+                    <div class="text-xs text-slate-400 mt-2">Scans Sarah's current uncommitted code draft.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 4: Active Mentorship -->
+        <div class="story-panel border-t-4 border-t-emerald-500">
+            <div class="connector-line"></div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold flex items-center gap-3"><span class="text-3xl">&#129302;</span> Scene 4: System 2 Active Mentoring</h2>
+                <span class="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/30">Human Augmentation</span>
+            </div>
+            
+            <p class="text-slate-300 leading-relaxed mb-6">
+                The Duck responds. Unlike basic autocomplete tools that just spit out code, it acts like a Senior Engineer, citing sources and forcing Sarah to engage in analytical (System 2) thinking.
+            </p>
+
+            <div class="bg-black rounded-lg p-6 font-mono text-sm shadow-inner border border-slate-800">
+                <div class="flex justify-start">
+                    <div class="chat-bubble-duck text-slate-200">
+                        <p class="mb-3 text-sky-300 font-bold">@Sarah</p>
+                        <p class="mb-3">I see you're on <span class="text-purple-400">RTR-842</span>. According to Dave's recent ADR on state management <span class="text-slate-500 text-xs">(Source: GitHub MCP -> /docs/state.md)</span>, we enforce global context for checkout to prevent prop-drilling errors during PCI validation.</p>
+                        <p class="mb-3">However, looking at your draft, you are making an API call directly in the component view.</p>
+                        <p class="text-rose-400 font-bold border-l-2 border-rose-500 pl-2">Guardrail Alert: This violates the "No Network Hopping" rule.</p>
+                        <p class="mt-3 text-emerald-400">How might you refactor this to move the side-effect into a dedicated service layer before we write the tests?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 5: The Validation -->
+        <div class="story-panel border-t-4 border-t-sky-500">
+            <div class="connector-line"></div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold flex items-center gap-3"><span class="text-3xl">&#9989;</span> Scene 5: Guardrails & 3 W's</h2>
+                <span class="bg-sky-500/20 text-sky-400 text-xs font-bold px-3 py-1 rounded-full border border-sky-500/30">Automated QA</span>
+            </div>
+            
+            <p class="text-slate-300 leading-relaxed mb-6">
+                Sarah refactors the code based on the architectural nudge. Before pushing her PR, she runs the final automated check to ensure it meets the strict testing standards.
+            </p>
+
+            <div class="bg-black rounded-lg p-4 font-mono text-sm shadow-inner border border-slate-800">
+                <div class="text-emerald-500 mb-2">$ duck-check --pre-commit</div>
+                <div class="text-slate-400 mt-2">> Analyzing tests for CheckoutService.ts...</div>
+                <div class="text-slate-300 mt-2 ml-4">✓ [What] Tests verify cart totals calculate correctly.</div>
+                <div class="text-slate-300 mt-1 ml-4">✓ [Where] Tests verify state updates in the store.</div>
+                <div class="text-rose-400 mt-1 ml-4">✗ [When] Missing test: What happens when the network fails during validation?</div>
+                <div class="text-sky-400 mt-4">Duck Suggestion: "Would you like me to scaffold a mock for the timeout failure state?"</div>
+            </div>
+        </div>
+
+        <!-- SCENE 6: The Resolution -->
+        <div class="story-panel bg-gradient-to-br from-[#1e293b] to-[#0f172a] border border-emerald-500/50 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+            <div class="connector-line"></div>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-black text-emerald-400 mb-2">The Quality Dividend Achieved</h2>
+                <p class="text-slate-400">The organizational impact of a single deflected interruption.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                    <div class="text-3xl mb-2">&#127891;</div>
+                    <div class="font-bold text-slate-200">Sarah (Junior/Mid)</div>
+                    <div class="text-xs text-emerald-400 mt-1">Learned the exact RTR pattern without feeling guilty. PR approved faster.</div>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                    <div class="text-3xl mb-2">&#129497;</div>
+                    <div class="font-bold text-slate-200">Dave (Senior)</div>
+                    <div class="text-xs text-emerald-400 mt-1">Retained flow state. 23+ minutes saved. Stress levels managed.</div>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                    <div class="text-3xl mb-2">&#127970;</div>
+                    <div class="font-bold text-slate-200">The Organization</div>
+                    <div class="text-xs text-emerald-400 mt-1">Context Flywheel spins. Institutional knowledge was enforced automatically.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
