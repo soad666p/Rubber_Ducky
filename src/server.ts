@@ -16,6 +16,7 @@ import {
 import { checkForTestStandards, reportTestFailures } from "./tools/testsTools.js";
 import { getCodeSummaryInstructions } from "./tools/codeTools.js";
 import { getFullSdlcFromJiraInstructions } from "./tools/sdlcTools.js";
+import { getDuckContextSwitchInstructions } from "./tools/duckCheckTools.js";
 
 export const server = new McpServer({
   name: "workflow-orchestrator-mcp",
@@ -25,6 +26,8 @@ export const server = new McpServer({
 server.tool("Make_TODO_INTO_JIRA_TICKETS", async () => getTodoToJirasInstructions());
 
 server.tool("Explain_the_codebase", async () => getCodeSummaryInstructions());
+
+server.tool("Duck_Context_Switch", async () => getDuckContextSwitchInstructions());
 
 server.tool(
   "Who_is_the_owner_of_the_service",
