@@ -8,11 +8,10 @@
       "description": "Cloud-hosted Rubber Ducky MCP server."
     },
     "rubber-ducky-local": {
-      "command": "node",
+      "command": "bash",
       "args": [
-        "--loader",
-        "ts-node/esm",
-        "${extensionPath}/src/server.ts"
+        "${extensionPath}/scripts/start-local-mcp.sh",
+        "${extensionPath}"
       ],
       "cwd": "${extensionPath}",
       "description": "Local version of Rubber Ducky (requires running 'npm install' in the extension directory)."
