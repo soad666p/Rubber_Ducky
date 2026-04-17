@@ -11,7 +11,7 @@ You can install this as a Gemini CLI extension directly from GitHub:
 gemini extensions install https://github.com/soad666p/Rubber_Ducky
 ```
 
-**Note:** If running locally, you must manually run `npm install` in the extension directory (usually `~/.gemini/extensions/rubber-ducky`).
+**Note:** Local mode now auto-installs dependencies on first launch. You can still run `npm install` manually in the extension directory (`~/.gemini/extensions/rubber-ducky`) if you prefer.
 
 ## Vercel Deployment (Cloud Hosting)
 
