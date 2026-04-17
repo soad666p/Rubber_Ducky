@@ -110,7 +110,7 @@ body {
         <div class="mb-10 text-center max-w-3xl mx-auto">
             <h2 class="text-3xl font-bold text-slate-900 mb-4">The "Focus Debt" Crisis</h2>
             <p class="text-slate-600 text-lg">
-                This section explores the severe impact of interruptions on modern software engineering. Based on research by Dr. Gloria Mark, we visualize the exponential cognitive cost of context switching and how the modern attention span has collapsed, turning senior engineers into overwhelmed "human routers."
+                This section explores the severe impact of interruptions on modern software engineering. Based on research by Dr. Gloria Mark<sup class="text-sky-600 text-xs"><a href="#fn2" class="hover:underline">[2]</a></sup>, we visualize the exponential cognitive cost of context switching and how the modern attention span has collapsed, turning senior engineers into overwhelmed "human routers."
             </p>
         </div>
 
@@ -118,7 +118,7 @@ body {
             <div class="glass-card p-8 flex flex-col justify-center items-center text-center border-t-4 border-rose-500 interactive-toggle" onclick="toggleMetricDetail()">
                 <div class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Recovery Time</div>
                 <div class="text-5xl font-black text-rose-500 mb-2">23<span class="text-2xl text-slate-400">m</span> 15<span class="text-2xl text-slate-400">s</span></div>
-                <p class="text-sm text-slate-500 mt-2">To return to original task after interruption.</p>
+                <p class="text-sm text-slate-500 mt-2">To return to original task after interruption.<sup class="text-sky-600 text-xs"><a href="#fn2" class="hover:underline">[2]</a></sup></p>
                 <div id="metric-detail" class="hidden-section mt-4 pt-4 border-t border-slate-100 text-sm text-slate-600 bg-slate-50 p-3 rounded">
                     Workers typically handle <strong>two intervening tasks</strong> before resuming. The cognitive "re-indexing" cost is exponential.
                 </div>
@@ -143,19 +143,10 @@ body {
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-            <div class="glass-card p-6 lg:col-span-5">
-                <h3 class="text-lg font-bold text-slate-800 mb-4 text-center">The Quality Dividend</h3>
-                <div class="chart-container" style="height: 250px;">
-                    <canvas id="qualityChart"></canvas>
-                </div>
-                <p class="text-center text-sm text-slate-500 mt-4 px-4">
-                    Based on University of Utah studies, pair programming yields fewer defects and boosts developer confidence by 90%.
-                </p>
-            </div>
-
-            <div class="glass-card p-8 lg:col-span-7 bg-slate-800 text-white border-none">
-                <h3 class="text-2xl font-bold mb-6 text-sky-400">System 1 vs System 2 Thinking</h3>
-                <div class="space-y-6">
+            <div class="glass-card p-8 lg:col-span-12 bg-slate-800 text-white border-none">
+                <h3 class="text-2xl font-bold mb-6 text-sky-400">System 1 vs System 2 Thinking<sup class="text-sky-300 text-xs ml-1"><a href="#fn1" class="hover:underline">[1]</a></sup></h3>
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <div class="space-y-6 flex-1">
                     <div class="flex gap-4 items-start border-b border-slate-700 pb-6">
                         <div class="text-4xl">&#129414;</div>
                         <div>
@@ -165,11 +156,17 @@ body {
                     </div>
                     <div class="flex gap-4 items-start">
                         <div class="text-4xl">&#129302;</div>
-                        <div>
+                        <div class="flex flex-col h-full">
                             <h4 class="text-lg font-bold text-emerald-400">Active (AI Rubber Duck)</h4>
                             <p class="text-slate-300 text-sm mt-1">Acts as an active listener. Asks probing questions: <em class="text-sky-300">"Does this align with our ADR on Micro-frontends?"</em> Forces logic justification against organizational standards.</p>
+                            <p class="text-slate-400 text-xs mt-auto pt-2"> Based on University of Utah studies, pair programming yields fewer defects and boosts developer confidence by 90%.<sup class="text-sky-300 text-xs"><a href="#fn3" class="hover:underline">[3]</a></sup></p>
                         </div>
                     </div>
+                </div>
+                <div class="flex flex-col items-end justify-center lg:w-2/5" id="system-img-container">
+                    <img src="system1-system2.png" alt="System 1 vs System 2" class="rounded-lg max-w-full" style="max-height: 320px;" onerror="document.getElementById('system-img-container').style.display='none'">
+                    <p class="text-xs text-slate-500 mt-2">Image credit: <a href="https://neurofied.com/thinking-fast-slow-down-system-1-and-2/" class="text-sky-400 hover:underline" target="_blank" rel="noopener">Neurofied</a></p>
+                </div>
                 </div>
             </div>
         </div>
@@ -224,6 +221,7 @@ body {
     <section id="architecture">
         <div class="mb-10 text-center max-w-3xl mx-auto">
             <h2 class="text-3xl font-bold text-slate-900 mb-4">The "Context Flywheel" Moat</h2>
+            <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Codifying Human Knowledge to drive human innovation by protecting deep focus</h3>
             <p class="text-slate-600 text-lg">
                 This section breaks down the core technical advantage: the RTR_MCP (Model Context Protocol). It illustrates how the tool integrates into existing workflows without retraining, connecting fragmented data sources to create an organizational self-learning loop.
             </p>
@@ -299,6 +297,29 @@ body {
         </div>
     </section>
 
+    <section class="border-t border-slate-200 pt-12 mt-12">
+        <h2 class="text-lg font-bold text-slate-700 mb-6">Footnotes & References</h2>
+        <ol class="list-decimal list-inside space-y-4 text-sm text-slate-500 leading-relaxed">
+            <li id="fn1">
+                <strong class="text-slate-700">System 1 & System 2 Thinking.</strong>
+                Popularized by Daniel Kahneman in <em>Thinking, Fast and Slow</em> (2011). System 1 is fast, automatic, emotional, and unconscious — handling routine decisions and intuition. System 2 is slow, deliberative, logical, and effortful — used for complex problem-solving and conscious reasoning.
+                <br><span class="text-slate-400 text-xs">Kahneman, D. (2011). <em>Thinking, Fast and Slow.</em> Farrar, Straus and Giroux. ISBN 978-0374275631.</span>
+            </li>
+            <li id="fn2">
+                <strong class="text-slate-700">The Cost of Interrupted Work.</strong>
+                Dr. Gloria Mark's research at UC Irvine found that it takes an average of 23 minutes and 15 seconds to return to a task after an interruption, with workers typically handling two intervening tasks before resuming. Her longitudinal studies (2004-2024) also documented the decline of sustained attention from 2.5 minutes to just 47 seconds.
+                <br><span class="text-slate-400 text-xs">Mark, G., Gudith, D., & Klocke, U. (2008). "The Cost of Interrupted Work: More Speed and Stress." <em>Proceedings of CHI 2008</em>, ACM.</span>
+                <br><span class="text-slate-400 text-xs">Mark, G. (2023). <em>Attention Span: A Groundbreaking Way to Restore Balance, Happiness and Productivity.</em> Hanover Square Press. ISBN 978-1335449412.</span>
+            </li>
+            <li id="fn3">
+                <strong class="text-slate-700">The Quality Dividend of Pair Programming.</strong>
+                A study conducted at the University of Utah found that pair programming produces code with 15% fewer defects than solo programming, while also boosting developer confidence by approximately 90%. The collaborative approach encourages continuous code review and knowledge transfer.
+                <br><span class="text-slate-400 text-xs">Williams, L., Kessler, R.R., Cunningham, W., & Jeffries, R. (2000). "Strengthening the Case for Pair Programming." <em>IEEE Software</em>, 17(4), 19-25.</span>
+                <br><span class="text-slate-400 text-xs">Cockburn, A. & Williams, L. (2001). "The Costs and Benefits of Pair Programming." <em>Proceedings of XP 2001</em>, Università degli studi di Cagliari.</span>
+            </li>
+        </ol>
+    </section>
+
 </main>
 
 <script>
@@ -369,28 +390,31 @@ new Chart(attCtx, {
     }
 });
 
-const qualCtx = document.getElementById('qualityChart').getContext('2d');
-new Chart(qualCtx, {
-    type: 'doughnut',
-    data: {
-        labels: [wrapText('Defects Eliminated via Context'), wrapText('Remaining Baseline Defects')],
-        datasets: [{
-            data: [15, 85],
-            backgroundColor: ['#10b981', '#e2e8f0'],
-            borderWidth: 0,
-            hoverOffset: 4
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '70%',
-        plugins: {
-            legend: { position: 'right' },
-            tooltip: tooltipCfg
+const qualEl = document.getElementById('qualityChart');
+if (qualEl) {
+    const qualCtx = qualEl.getContext('2d');
+    new Chart(qualCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [wrapText('Defects Eliminated via Context'), wrapText('Remaining Baseline Defects')],
+            datasets: [{
+                data: [15, 85],
+                backgroundColor: ['#10b981', '#e2e8f0'],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: { position: 'right' },
+                tooltip: tooltipCfg
+            }
         }
-    }
-});
+    });
+}
 
 const radarCtx = document.getElementById('radarChart').getContext('2d');
 new Chart(radarCtx, {
